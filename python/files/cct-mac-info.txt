@@ -1,0 +1,39 @@
+
+
+
+cc-3850-core:
+
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+ 101    b06e.bfce.a397    DYNAMIC     Gi2/0/2
+Total Mac Addresses for this criterion: 1
+
+
+cc-3850-idf2:
+
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+ 101    b06e.bfce.a397    DYNAMIC     Po2
+Total Mac Addresses for this criterion: 1
+
+
+cc-3850-idf3:
+
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+ 101    b06e.bfce.a397    DYNAMIC     Po3
+Total Mac Addresses for this criterion: 1
+
+
+cc-3850-core:
+
+Internet  172.16.101.1            4   b06e.bfce.a397  ARPA   Vlan101

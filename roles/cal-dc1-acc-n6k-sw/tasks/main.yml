@@ -1,0 +1,14 @@
+---
+# tasks file for cal-dc1-agg-n7k-gw
+- name: Obtain Login
+  include_vars: pass.yaml
+
+- name: Define cal-dc1-acc-n6k-sw
+  set_fact:
+    provider:
+      host: "{{ inventory_hostname }}"
+      username: "{{ creds['username'] }}"
+      password: "{{ creds['password'] }}"
+      auth_pass: "{{ creds['auth_pass'] }}"
+
+- include: cal-dc1-acc-n6k-sw-config.yaml

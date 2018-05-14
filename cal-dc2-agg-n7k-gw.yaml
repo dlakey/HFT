@@ -1,0 +1,7 @@
+---
+- hosts: cal-dc2-agg-n7k-gw
+  gather_facts: no
+  connection: local
+    
+  roles:
+    - role: cal-dc2-agg-n7k-gw

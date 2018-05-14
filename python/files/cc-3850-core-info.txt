@@ -1,0 +1,1217 @@
+terminal length 0
+cc-3850-core#show version
+Cisco IOS Software [Denali], Catalyst L3 Switch Software (CAT3K_CAA-UNIVERSALK9-M), Version 16.3.5, RELEASE SOFTWARE (fc1)
+Technical Support: http://www.cisco.com/techsupport
+Copyright (c) 1986-2017 by Cisco Systems, Inc.
+Compiled Thu 05-Oct-17 00:38 by mcpre
+
+
+Cisco IOS-XE software, Copyright (c) 2005-2017 by cisco Systems, Inc.
+All rights reserved.  Certain components of Cisco IOS-XE software are
+licensed under the GNU General Public License ("GPL") Version 2.0.  The
+software code licensed under GPL Version 2.0 is free software that comes
+with ABSOLUTELY NO WARRANTY.  You can redistribute and/or modify such
+GPL code under the terms of GPL Version 2.0.  For more details, see the
+documentation or "License Notice" file accompanying the IOS-XE software,
+or the applicable URL provided on the flyer accompanying the IOS-XE
+software.
+
+
+ROM: IOS-XE ROMMON
+BOOTLDR: CAT3K_CAA Boot Loader (CAT3K_CAA-HBOOT-M) Version 3.58, RELEASE SOFTWARE (P)
+
+cc-3850-core uptime is 3 weeks, 3 days, 16 hours, 44 minutes
+Uptime for this control processor is 3 weeks, 3 days, 16 hours, 48 minutes
+System returned to ROM by Power Failure
+System image file is "flash:packages.conf"
+Last reload reason: Power Failure
+
+
+
+This product contains cryptographic features and is subject to United
+States and local country laws governing import, export, transfer and
+use. Delivery of Cisco cryptographic products does not imply
+third-party authority to import, export, distribute or use encryption.
+Importers, exporters, distributors and users are responsible for
+compliance with U.S. and local country laws. By using this product you
+agree to comply with applicable laws and regulations. If you are unable
+to comply with U.S. and local laws, return this product immediately.
+
+A summary of U.S. laws governing Cisco cryptographic products may be found at:
+http://www.cisco.com/wwl/export/crypto/tool/stqrg.html
+
+If you require further assistance please contact us by sending email to
+export@cisco.com.
+
+
+Technology Package License Information: 
+
+-----------------------------------------------------------------
+Technology-package                   Technology-package
+Current             Type             Next reboot  
+------------------------------------------------------------------
+ipbasek9            Permanent        ipbasek9
+
+cisco WS-C3850-48U (MIPS) processor (revision AB0) with 865070K/6147K bytes of memory.
+Processor board ID FCW2132D0Q8
+7 Virtual Ethernet interfaces
+104 Gigabit Ethernet interfaces
+8 Ten Gigabit Ethernet interfaces
+2048K bytes of non-volatile configuration memory.
+4194304K bytes of physical memory.
+250456K bytes of Crash Files at crashinfo:.
+250456K bytes of Crash Files at crashinfo-2:.
+1609272K bytes of Flash at flash:.
+1609272K bytes of Flash at flash-2:.
+0K bytes of  at webui:.
+
+Base Ethernet MAC Address          : 74:86:0b:cf:91:80
+Motherboard Assembly Number        : 73-15799-08
+Motherboard Serial Number          : FOC21303EXK
+Model Revision Number              : AB0
+Motherboard Revision Number        : A0
+Model Number                       : WS-C3850-48U
+System Serial Number               : FCW2132D0Q8
+
+
+Switch Ports Model              SW Version        SW Image              Mode   
+------ ----- -----              ----------        ----------            ----   
+*    1 56    WS-C3850-48U       16.3.5            CAT3K_CAA-UNIVERSALK9 INSTALL
+     2 56    WS-C3850-48U       16.3.5            CAT3K_CAA-UNIVERSALK9 INSTALL
+
+
+Switch 02
+---------
+Switch uptime                      : 3 weeks, 3 days, 16 hours, 48 minutes 
+
+Base Ethernet MAC Address          : 74:86:0b:c6:cb:00
+Motherboard Assembly Number        : 73-15799-08
+Motherboard Serial Number          : FOC21303ESB
+Model Revision Number              : AB0
+Motherboard Revision Number        : A0
+Model Number                       : WS-C3850-48U
+System Serial Number               : FOC2132L0NK
+
+Configuration register is 0x102
+
+cc-3850-core#show config
+Using 31649 out of 2097152 bytes
+!
+! Last configuration change at 22:27:35 UTC Thu Feb 15 2018 by admin
+!
+version 16.3
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no platform punt-keepalive disable-kernel-core
+!
+hostname cc-3850-core
+!
+!
+vrf definition Mgmt-vrf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+enable secret 5 $1$Z3yE$0neL7kZNVW4ZmCVB5cDSE0
+!
+aaa new-model
+!
+!
+aaa authentication login default local
+!
+!
+!
+!
+!
+aaa session-id common
+switch 1 provision ws-c3850-48u
+switch 2 provision ws-c3850-48u
+!
+!
+!
+!
+ip routing
+!
+!
+!
+ip domain name carnival.com
+!
+!
+!
+!
+!
+!
+!
+!
+vtp mode transparent
+!
+table-map AutoQos-4.0-Trust-Cos-Table
+ default copy
+!
+!
+crypto pki trustpoint TP-self-signed-1894419075
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-1894419075
+ revocation-check none
+ rsakeypair TP-self-signed-1894419075
+!
+!
+crypto pki certificate chain TP-self-signed-1894419075
+ certificate self-signed 01 nvram:IOS-Self-Sig#2.cer
+!
+license boot level ipbasek9
+diagnostic bootup level minimal
+!
+spanning-tree mode rapid-pvst
+spanning-tree extend system-id
+spanning-tree vlan 1,100-104 priority 4096
+spanning-tree vlan 105 priority 61440
+!
+!
+username admin privilege 15 password 0 cc2lake
+!
+redundancy
+ mode sso
+!
+!
+vlan 100
+ name Management
+!
+vlan 101
+ name Video
+!
+vlan 102
+ name Access
+!
+vlan 103
+ name FIREWALL-INSIDE
+!
+vlan 104
+ name EXISTING-NVR-NETWORK
+!
+vlan 105
+ name FIREWALL-OUTSIDE
+!
+!
+class-map match-any AutoQos-4.0-Output-Multimedia-Conf-Queue
+ match dscp af41  af42  af43 
+ match cos  4 
+class-map match-any system-cpp-police-topology-control
+  description Topology control
+class-map match-any system-cpp-police-sw-forward
+  description Sw forwarding, SGT Cache Full, LOGGING
+class-map match-any AutoQos-4.0-Output-Bulk-Data-Queue
+ match dscp af11  af12  af13 
+ match cos  1 
+class-map match-any system-cpp-default
+  description DHCP snooping, show forward and rest of traffic
+class-map match-any system-cpp-police-sys-data
+  description Learning cache ovfl, Crypto Control, Exception, EGR Exception, NFL SAMPLED DATA, Gold Pkt, RPF Failed
+class-map match-any AutoQos-4.0-Output-Priority-Queue
+ match dscp cs4  cs5  ef 
+ match cos  5 
+class-map match-any system-cpp-police-punt-webauth
+  description Punt Webauth
+class-map match-any AutoQos-4.0-Output-Multimedia-Strm-Queue
+ match dscp af31  af32  af33 
+class-map match-any system-cpp-police-forus
+  description Forus Address resolution and Forus traffic
+class-map match-any system-cpp-police-multicast-end-station
+  description MCAST END STATION
+class-map match-any system-cpp-police-multicast
+  description Transit Traffic and MCAST Data
+class-map match-any system-cpp-police-l2-control
+  description L2 control
+class-map match-any system-cpp-police-dot1x-auth
+  description DOT1X Auth
+class-map match-any system-cpp-police-data
+  description ICMP_GEN and BROADCAST
+class-map match-any system-cpp-police-control-low-priority
+  description ICMP redirect and general punt
+class-map match-any system-cpp-police-wireless-priority1
+  description Wireless priority 1
+class-map match-any system-cpp-police-wireless-priority2
+  description Wireless priority 2
+class-map match-any system-cpp-police-wireless-priority3-4-5
+  description Wireless priority 3,4 and 5
+class-map match-any non-client-nrt-class
+class-map match-any system-cpp-police-routing-control
+  description Routing control
+class-map match-any system-cpp-police-protocol-snooping
+  description Protocol snooping
+class-map match-any AutoQos-4.0-Output-Trans-Data-Queue
+ match dscp af21  af22  af23 
+ match cos  2 
+class-map match-any AutoQos-4.0-Output-Scavenger-Queue
+ match dscp cs1 
+class-map match-any AutoQos-4.0-Output-Control-Mgmt-Queue
+ match dscp cs2  cs3  cs6  cs7 
+ match cos  3 
+!
+policy-map port_child_policy
+ class non-client-nrt-class
+  bandwidth remaining ratio 10
+policy-map AutoQos-4.0-Output-Policy
+ class AutoQos-4.0-Output-Priority-Queue
+  priority level 1 percent 30
+ class AutoQos-4.0-Output-Control-Mgmt-Queue
+  bandwidth remaining percent 10 
+  queue-limit dscp cs2 percent 80
+  queue-limit dscp cs3 percent 90
+  queue-limit dscp cs6 percent 100
+  queue-limit dscp cs7 percent 100
+  queue-buffers ratio 10
+ class AutoQos-4.0-Output-Multimedia-Conf-Queue
+  bandwidth remaining percent 10 
+  queue-buffers ratio 10
+ class AutoQos-4.0-Output-Trans-Data-Queue
+  bandwidth remaining percent 10 
+  queue-buffers ratio 10
+ class AutoQos-4.0-Output-Bulk-Data-Queue
+  bandwidth remaining percent 4 
+  queue-buffers ratio 10
+ class AutoQos-4.0-Output-Scavenger-Queue
+  bandwidth remaining percent 1 
+  queue-buffers ratio 10
+ class AutoQos-4.0-Output-Multimedia-Strm-Queue
+  bandwidth remaining percent 10 
+  queue-buffers ratio 10
+ class class-default
+  bandwidth remaining percent 25 
+  queue-buffers ratio 25
+policy-map AutoQos-4.0-Trust-Cos-Input-Policy
+ class class-default
+  set cos cos table AutoQos-4.0-Trust-Cos-Table
+policy-map system-cpp-policy
+ class system-cpp-police-data
+  police rate 200 pps
+ class system-cpp-police-sys-data
+  police rate 100 pps
+ class system-cpp-police-sw-forward
+  police rate 1000 pps
+ class system-cpp-police-multicast
+  police rate 500 pps
+ class system-cpp-police-multicast-end-station
+  police rate 2000 pps
+ class system-cpp-police-punt-webauth
+ class system-cpp-police-l2-control
+ class system-cpp-police-routing-control
+  police rate 1800 pps
+ class system-cpp-police-control-low-priority
+ class system-cpp-police-wireless-priority1
+ class system-cpp-police-wireless-priority2
+ class system-cpp-police-wireless-priority3-4-5
+ class system-cpp-police-topology-control
+ class system-cpp-police-dot1x-auth
+ class system-cpp-police-protocol-snooping
+ class system-cpp-police-forus
+ class system-cpp-default
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Port-channel1
+ switchport mode trunk
+!
+interface Port-channel2
+ switchport mode trunk
+!
+interface Port-channel3
+ switchport mode trunk
+!
+interface GigabitEthernet0/0
+ vrf forwarding Mgmt-vrf
+ no ip address
+ negotiation auto
+!
+interface GigabitEthernet1/0/1
+ description CC_INTERNET_CIRCUIT
+ switchport access vlan 105
+ switchport mode access
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/2
+ switchport access vlan 103
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/3
+ switchport access vlan 105
+ switchport mode access
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/4
+ switchport access vlan 106
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/5
+ switchport access vlan 104
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/6
+ switchport access vlan 100
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/7
+ switchport access vlan 102
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/8
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/9
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/10
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/11
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/12
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/13
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/14
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/15
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/16
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/17
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/18
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/19
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/20
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/21
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/22
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/23
+ switchport access vlan 100
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/24
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/25
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/26
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/27
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/28
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/29
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/30
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/31
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/32
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/33
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/34
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/35
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/36
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/37
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/38
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/39
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/40
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/41
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/42
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/43
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/44
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/45
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/46
+ description ACCESS CONTROL ESXI HOST INT 1
+ switchport mode trunk
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/47
+ switchport access vlan 102
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/0/48
+ switchport access vlan 102
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/1/1
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/1/2
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/1/3
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet1/1/4
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface TenGigabitEthernet1/1/1
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet1/1/2
+ switchport mode trunk
+ channel-group 2 mode active
+!
+interface TenGigabitEthernet1/1/3
+ switchport mode trunk
+ channel-group 3 mode active
+!
+interface TenGigabitEthernet1/1/4
+ switchport mode trunk
+!
+interface GigabitEthernet2/0/1
+ switchport access vlan 105
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/2
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/3
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/4
+ switchport access vlan 101
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/5
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/6
+ switchport access vlan 100
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/7
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/8
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/9
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/10
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/11
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/12
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/13
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/14
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/15
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/16
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/17
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/18
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/19
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/20
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/21
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/22
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/23
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/24
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/25
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/26
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/27
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/28
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/29
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/30
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/31
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/32
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/33
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/34
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/35
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/36
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/37
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/38
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/39
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/40
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/41
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/42
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/43
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/44
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/45
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/46
+ description ACCESS CONTROL ESXI HOST INT 2
+ switchport mode trunk
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/47
+ switchport access vlan 100
+ switchport mode access
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/0/48
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/1/1
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/1/2
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/1/3
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface GigabitEthernet2/1/4
+ auto qos trust cos
+ service-policy input AutoQos-4.0-Trust-Cos-Input-Policy
+ service-policy output AutoQos-4.0-Output-Policy
+!
+interface TenGigabitEthernet2/1/1
+ switchport mode trunk
+ channel-group 1 mode active
+!
+interface TenGigabitEthernet2/1/2
+ switchport mode trunk
+ channel-group 2 mode active
+!
+interface TenGigabitEthernet2/1/3
+ switchport mode trunk
+ channel-group 3 mode active
+!
+interface TenGigabitEthernet2/1/4
+ switchport mode trunk
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan100
+ ip address 172.16.100.254 255.255.255.0
+!
+interface Vlan101
+ ip address 172.16.101.254 255.255.255.0
+!
+interface Vlan102
+ ip address 172.16.102.254 255.255.255.0
+!
+interface Vlan103
+ ip address 172.16.103.2 255.255.255.248
+!
+interface Vlan104
+ ip address 192.168.10.254 255.255.255.0
+!
+interface Vlan106
+ no ip address
+!
+router ospf 1
+ network 172.16.100.0 0.0.0.255 area 0
+ network 172.16.101.0 0.0.0.255 area 0
+ network 172.16.102.0 0.0.0.255 area 0
+ network 172.16.103.0 0.0.0.3 area 0
+!
+ip forward-protocol nd
+ip http server
+ip http authentication local
+ip http secure-server
+!
+ip route 0.0.0.0 0.0.0.0 172.16.103.1
+!
+ip access-list extended AutoQos-4.0-wlan-Acl-Bulk-Data
+ permit tcp any any eq 22
+ permit tcp any any eq 465
+ permit tcp any any eq 143
+ permit tcp any any eq 993
+ permit tcp any any eq 995
+ permit tcp any any eq 1914
+ permit tcp any any eq ftp
+ permit tcp any any eq ftp-data
+ permit tcp any any eq smtp
+ permit tcp any any eq pop3
+ip access-list extended AutoQos-4.0-wlan-Acl-MultiEnhanced-Conf
+ permit udp any any range 16384 32767
+ permit tcp any any range 50000 59999
+ip access-list extended AutoQos-4.0-wlan-Acl-Scavanger
+ permit tcp any any range 2300 2400
+ permit udp any any range 2300 2400
+ permit tcp any any range 6881 6999
+ permit tcp any any range 28800 29100
+ permit tcp any any eq 1214
+ permit udp any any eq 1214
+ permit tcp any any eq 3689
+ permit udp any any eq 3689
+ permit tcp any any eq 11999
+ip access-list extended AutoQos-4.0-wlan-Acl-Signaling
+ permit tcp any any range 2000 2002
+ permit tcp any any range 5060 5061
+ permit udp any any range 5060 5061
+ip access-list extended AutoQos-4.0-wlan-Acl-Transactional-Data
+ permit tcp any any eq 443
+ permit tcp any any eq 1521
+ permit udp any any eq 1521
+ permit tcp any any eq 1526
+ permit udp any any eq 1526
+ permit tcp any any eq 1575
+ permit udp any any eq 1575
+ permit tcp any any eq 1630
+ permit udp any any eq 1630
+ permit tcp any any eq 1527
+ permit tcp any any eq 6200
+ permit tcp any any eq 3389
+ permit tcp any any eq 5985
+ permit tcp any any eq 8080
+!
+access-list 10 permit 10.200.241.0 0.0.0.255
+!
+snmp-server community cctsss RO 10
+snmp-server community cctsss3!@#$ RW 10
+snmp-server location Long Beach
+snmp-server contact Chris Reeves
+snmp-server enable traps snmp authentication linkdown linkup coldstart warmstart
+snmp-server enable traps flowmon
+snmp-server enable traps entity-perf throughput-notif
+snmp-server enable traps wireless bsnMobileStation bsnAccessPoint bsnRogue bsn80211Security bsnAutoRF bsnGeneral AP client mfp mobility rogue RRM SI
+snmp-server enable traps call-home message-send-fail server-fail
+snmp-server enable traps tty
+snmp-server enable traps ospf state-change
+snmp-server enable traps ospf errors
+snmp-server enable traps ospf retransmit
+snmp-server enable traps ospf lsa
+snmp-server enable traps ospf cisco-specific state-change nssa-trans-change
+snmp-server enable traps ospf cisco-specific state-change shamlink interface
+snmp-server enable traps ospf cisco-specific state-change shamlink neighbor
+snmp-server enable traps ospf cisco-specific errors
+snmp-server enable traps ospf cisco-specific retransmit
+snmp-server enable traps ospf cisco-specific lsa
+snmp-server enable traps eigrp
+snmp-server enable traps auth-framework sec-violation
+snmp-server enable traps rep
+snmp-server enable traps vtp
+snmp-server enable traps vlancreate
+snmp-server enable traps vlandelete
+snmp-server enable traps port-security
+snmp-server enable traps license
+snmp-server enable traps cpu threshold
+snmp-server enable traps memory bufferpeak
+snmp-server enable traps stackwise
+snmp-server enable traps envmon
+snmp-server enable traps fru-ctrl
+snmp-server enable traps flash insertion removal
+snmp-server enable traps energywise
+snmp-server enable traps power-ethernet group 1
+snmp-server enable traps power-ethernet group 2
+snmp-server enable traps power-ethernet police
+snmp-server enable traps entity
+snmp-server enable traps lisp
+snmp-server enable traps trustsec-sxp conn-srcaddr-err msg-parse-err conn-config-err binding-err conn-up conn-down binding-expn-fail oper-nodeid-change binding-conflict
+snmp-server enable traps trustsec authz-file-error cache-file-error keystore-file-error keystore-sync-fail random-number-fail src-entropy-fail
+snmp-server enable traps trustsec-interface unauthorized sap-fail authc-fail supplicant-fail authz-fail
+snmp-server enable traps trustsec-server radius-server provision-secret
+snmp-server enable traps ike policy add
+snmp-server enable traps ike policy delete
+snmp-server enable traps ike tunnel start
+snmp-server enable traps ike tunnel stop
+snmp-server enable traps ipsec cryptomap add
+snmp-server enable traps ipsec cryptomap delete
+snmp-server enable traps ipsec cryptomap attach
+snmp-server enable traps ipsec cryptomap detach
+snmp-server enable traps ipsec tunnel start
+snmp-server enable traps ipsec tunnel stop
+snmp-server enable traps ipsec too-many-sas
+snmp-server enable traps bgp cbgp2
+snmp-server enable traps entity-sensor
+snmp-server enable traps ipsla
+snmp-server enable traps entity-diag boot-up-fail hm-test-recover hm-thresh-reached scheduled-test-fail
+snmp-server enable traps bfd
+snmp-server enable traps cef resource-failure peer-state-change peer-fib-state-change inconsistency
+snmp-server enable traps config-copy
+snmp-server enable traps config
+snmp-server enable traps config-ctid
+snmp-server enable traps dhcp
+snmp-server enable traps event-manager
+snmp-server enable traps hsrp
+snmp-server enable traps ipmulticast
+snmp-server enable traps msdp
+snmp-server enable traps ospfv3 state-change
+snmp-server enable traps ospfv3 errors
+snmp-server enable traps pim neighbor-change rp-mapping-change invalid-pim-message
+snmp-server enable traps rsvp
+snmp-server enable traps vstack
+snmp-server enable traps bridge newroot topologychange
+snmp-server enable traps stpx inconsistency root-inconsistency loop-inconsistency
+snmp-server enable traps syslog
+snmp-server enable traps vlan-membership
+snmp-server enable traps errdisable
+snmp-server enable traps rf
+snmp-server enable traps transceiver all
+snmp-server enable traps bulkstat collection transfer
+snmp-server enable traps mac-notification change move threshold
+snmp-server enable traps vrfmib vrf-up vrf-down vnet-trunk-up vnet-trunk-down
+!
+!
+!
+control-plane
+ service-policy input system-cpp-policy
+!
+!
+no vstack
+!
+line con 0
+ stopbits 1
+line aux 0
+ stopbits 1
+line vty 0 4
+ privilege level 15
+line vty 5 15
+ privilege level 15
+!
+!
+wsma agent exec
+!
+wsma agent config
+!
+wsma agent filesys
+!
+wsma agent notify
+!
+!
+ap dot11 airtime-fairness policy-name Default 0
+ap group default-group
+ap hyperlocation ble-beacon 0
+ap hyperlocation ble-beacon 1
+ap hyperlocation ble-beacon 2
+ap hyperlocation ble-beacon 3
+ap hyperlocation ble-beacon 4
+end
+
+cc-3850-core#show logging
+Syslog logging: enabled (0 messages dropped, 6 messages rate-limited, 0 flushes, 0 overruns, xml disabled, filtering disabled)
+
+No Active Message Discriminator.
+
+
+
+No Inactive Message Discriminator.
+
+
+    Console logging: level debugging, 684 messages logged, xml disabled,
+                     filtering disabled
+    Monitor logging: level debugging, 0 messages logged, xml disabled,
+                     filtering disabled
+    Buffer logging:  level debugging, 689 messages logged, xml disabled,
+                    filtering disabled
+    Exception Logging: size (4096 bytes)
+    Count and timestamp logging messages: disabled
+    File logging: disabled
+    Persistent logging: disabled
+
+No active filter modules.
+
+    Trap logging: level informational, 673 message lines logged
+        Logging Source-Interface:       VRF Name:
+
+Log Buffer (4096 bytes):
+327: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/47, changed state to down
+*Feb 15 18:17:54.332: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/47, changed state to down
+*Feb 15 18:18:12.564: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/47, changed state to up
+*Feb 15 18:18:13.565: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/47, changed state to up
+*Feb 15 21:18:25.794: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/47, changed state to down
+*Feb 15 21:18:26.798: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/47, changed state to down
+*Feb 15 21:19:14.304: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/47, changed state to up
+*Feb 15 21:19:15.303: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/47, changed state to up
+*Feb 15 21:39:24.984: %PLATFORM_PM-6-MODULE_INSERTED: SFP module inserted with interface name Te2/1/4
+*Feb 15 22:08:53.786: %SYS-5-CONFIG_I: Configured from console by admin on vty0 (172.16.101.2)
+*Feb 15 22:09:08.522: %LINK-5-CHANGED: Interface TenGigabitEthernet2/1/4, changed state to administratively down
+*Feb 15 22:09:10.928: %LINK-3-UPDOWN: Interface TenGigabitEthernet2/1/4, changed state to down
+*Feb 15 22:09:19.016: %SYS-5-CONFIG_I: Configured from console by admin on vty0 (172.16.101.2)
+*Feb 15 22:22:49.667: %LINK-3-UPDOWN: Interface TenGigabitEthernet2/1/4, changed state to up
+*Feb 15 22:22:51.686: %LINEPROTO-5-UPDOWN: Line protocol on Interface TenGigabitEthernet2/1/4, changed state to up
+*Feb 15 22:26:07.500: %SYS-5-CONFIG_I: Configured from console by admin on vty0 (172.16.101.2)
+*Feb 15 22:27:35.735: %SYS-5-CONFIG_I: Configured from console by admin on vty0 (172.16.101.2)
+*Feb 15 23:48:41.299: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/48, changed state to up
+*Feb 15 23:48:42.299: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/48, changed state to up
+*Feb 15 23:51:57.233: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/48, changed state to down
+*Feb 15 23:51:58.237: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/48, changed state to down
+*Feb 15 23:52:01.280: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/48, changed state to up
+*Feb 15 23:52:02.281: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/48, changed state to up
+*Feb 16 17:25:48.675: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/47, changed state to down
+*Feb 16 17:25:49.678: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/47, changed state to down
+*Feb 16 17:26:14.541: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/47, changed state to up
+*Feb 16 17:26:15.541: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/47, changed state to up
+*Feb 16 17:38:41.439: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/47, changed state to down
+*Feb 16 17:38:42.443: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/47, changed state to down
+*Feb 16 17:39:20.839: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/47, changed state to up
+*Feb 16 17:39:21.839: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/47, changed state to up
+*Feb 16 17:40:47.826: %ILPOWER-7-DETECT: Interface Gi1/0/30: Power Device detected: IEEE PD
+*Feb 16 17:40:53.666: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/30, changed state to up
+*Feb 16 17:40:54.666: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/30, changed state to up
+*Feb 16 17:40:57.871: %ILPOWER-5-POWER_GRANTED: Interface Gi1/0/30: Power granted
+*Feb 16 18:08:58.822: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/30, changed state to down
+*Feb 16 18:08:59.824: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/30, changed state to down
+*Feb 16 18:09:00.400: %ILPOWER-5-IEEE_DISCONNECT: Interface Gi1/0/30: PD removed
+*Feb 16 18:09:00.404: %ILPOWER-5-IEEE_DISCONNECT: Interface Gi1/0/30: PD removed
+*Feb 16 18:09:19.321: %LINK-3-UPDOWN: Interface GigabitEthernet1/0/31, changed state to up
+*Feb 16 18:09:20.321: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/31, changed state to up
+cc-3850-core#

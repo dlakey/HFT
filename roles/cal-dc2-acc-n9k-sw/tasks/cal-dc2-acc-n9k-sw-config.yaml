@@ -1,0 +1,17 @@
+  - name: Obtain Login
+    include_vars: pass.yaml
+
+  - name: Define cal-dc2-acc-n9k-sw Credentials
+    set_fact:
+      provider:
+        host: "{{ inventory_hostname }}"
+        username: "{{ creds['username'] }}"
+        password: "{{ creds['password'] }}"
+        transport: nxapi
+        #auth_pass: "{{ creds['auth_pass'] }}"
+
+  - name: cal-dc2-acc-n9k-sw Config
+    nxos_config:
+      timeout: 100
+      provider: "{{ provider }}"
+      src: "~/HFT/roles/cal-dc2-acc-n9k-sw/files/vlan.cfg"

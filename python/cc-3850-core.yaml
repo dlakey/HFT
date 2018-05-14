@@ -1,0 +1,7 @@
+---
+- hosts: cc-3850-core
+  gather_facts: no
+  connection: local
+    
+  roles:
+    - role: cc-3850-core

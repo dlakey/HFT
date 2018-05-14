@@ -1,0 +1,43 @@
+##
+# Host Database
+#
+# localhost is used to configure the loopback interface
+# when the system is booting.  Do not change this entry.
+##
+[local]
+127.0.0.0
+
+[cc-3850-core]
+172.16.100.254
+
+[cc-3850-idf2]
+172.16.100.2
+
+[cc-3850-idf3]
+172.16.100.3
+
+[cal-dc1-csr-rtr]
+172.16.200.1
+
+[cal-dc1-agg-n7k-gw]
+172.16.200.1
+
+[cal-dc2-agg-n7k-gw]
+172.16.200.2
+
+[cal-dc1-acc-n9k-sw]
+172.16.200.5
+
+[cal-dc2-acc-n9k-sw]
+172.16.200.6
+
+[cal-dc1-acc-n6k-sw]
+172.16.200.3
+
+[cal-dc2-acc-n6k-sw]
+172.16.200.4
+
+
+
+[ubuntu]
+vm1 ansible_ssh_host=172.16.145.101 ansible_ssh_user=dlakey ansible_ssh_private_key_file=~/.ssh/known_hosts 

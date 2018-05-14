@@ -1,0 +1,61 @@
+
+
+
+la421:
+
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+ 408    fa16.3efb.ab75    DYNAMIC     Gi0/2
+Total Mac Addresses for this criterion: 1
+
+
+la521:
+
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+ 408    fa16.3efb.ab75    DYNAMIC     Gi0/1
+Total Mac Addresses for this criterion: 1
+
+
+ets-lp5-sg300:
+
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+ 408    fa16.3efb.ab75    DYNAMIC     Gi0/2
+Total Mac Addresses for this criterion: 1
+
+
+ets-lp15-sg300:
+
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+ 408    fa16.3efb.ab75    DYNAMIC     Gi0/1
+Total Mac Addresses for this criterion: 1
+
+
+ets-core:
+
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+ 408    fa16.3efb.ab75    DYNAMIC     Gi0/1
+Total Mac Addresses for this criterion: 1
+
+
+ets-core:
+
+Internet  192.168.8.205          89   fa16.3efb.ab75  ARPA   Vlan408

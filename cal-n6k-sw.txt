@@ -1,0 +1,13 @@
+config t
+interface e2/5
+switchport trunk allowed vlan add X4Y7D
+exit
+interface e2/7
+switchport trunk allowed vlan add X4Y7D
+exit
+interface e2/1
+switchport trunk allowed vlan remove X4Y7D
+exit
+interface e2/2
+switchport trunk allowed vlan remove X4Y7D
+exit 
