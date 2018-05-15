@@ -1,4 +1,0 @@
-cc-3850-core
-cc-3850-idf2
-cc-3850-idf3
-

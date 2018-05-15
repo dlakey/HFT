@@ -1,7 +1,0 @@
----
-- hosts: ets-core
-  gather_facts: no
-  connection: local
-    
-  roles:
-    - role: ets-core
